@@ -1,0 +1,24 @@
+{
+  "name": "lula-common",
+  "version": "0.0.1",
+  "description": "Common utils for the Lula project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evanx/lula-common.git"
+  },
+  "keywords": [
+    "message",
+    "broker",
+    "Redis"
+  ],
+  "author": "Evan Summers",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/evanx/lula-common/issues"
+  },
+  "homepage": "https://github.com/evanx/lula-common#readme"
+}
