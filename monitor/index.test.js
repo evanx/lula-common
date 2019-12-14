@@ -61,11 +61,14 @@ describe('monitor', () => {
         'test',
         {
           _int: 1,
+          _fn: () => false,
           _string: 'hello',
           _true: true,
         },
-        { _int: 'number', _string: 'string', _true: 'string' },
+        { _int: 'number', _fn: 'string', _string: 'string', _true: 'string' },
       ),
-    ).toThrow('monitor.test: assert type: test: _true:string:boolean')
+    ).toThrow(
+      'monitor.test: assert type: test: _fn:string:function, _true:string:boolean',
+    )
   })
 })

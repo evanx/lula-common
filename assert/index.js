@@ -1,5 +1,8 @@
 const stringifyValue = value => {
-  if (typeof value !== 'object') {
+  if (typeof value === 'function') {
+    debugger
+    return 'function'
+  } else if (typeof value !== 'object') {
     return '' + value
   } else {
     return 'object'
