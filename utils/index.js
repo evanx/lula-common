@@ -1,4 +1,3 @@
-const config = require('config')
 const pino = require('pino')
 const Redis = require('ioredis')
 
@@ -15,14 +14,18 @@ const buildPromise = fn =>
     fn((err, res) => (err ? reject(err) : resolve(res))),
   )
 
-const buildLogger = loggerConfig =>
-  pino(Object.assign({}, config.logger, loggerConfig))
+const buildLogger = loggerConfig => pino(loggerConfig)
 
 const buildRedis = redisConfig => new Redis(redisConfig)
 
 const clock = () => Date.now()
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+const encodeParams = object =>
+  Object.entries(object)
+    .map(([key, value]) => key + '=' + encodeURIComponent(value))
+    .join('&')
 
 const endRedis = redisClient => redisClient.quit()
 
@@ -58,6 +61,7 @@ module.exports = {
   buildRedis,
   clock,
   delay,
+  encodeParams,
   endRedis,
   multiAsync,
   parseRedisMs,

@@ -4,7 +4,7 @@
   "description": "Common utils for the Lula project.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "LOG_LEVEL=debug LOG_PRETTY=true jest"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,18 @@
   "bugs": {
     "url": "https://github.com/evanx/lula-common/issues"
   },
-  "homepage": "https://github.com/evanx/lula-common#readme"
+  "homepage": "https://github.com/evanx/lula-common#readme",
+  "dependencies": {
+    "ioredis": "^4.14.1",
+    "pino": "^5.14.0",
+    "pino-pretty": "^3.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "prettier-config-standard": "^1.0.1"
+  }
 }

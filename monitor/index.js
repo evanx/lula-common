@@ -1,6 +1,8 @@
 const assert = require('assert')
 const pino = require('pino')
 
+const buildAssert = require('../assert')
+
 const env = {
   debugNames: !process.env.DEBUG ? [] : process.env.DEBUG.split(','),
   defaultLevel: process.env.LOG_LEVEL || 'info',
@@ -29,42 +31,7 @@ const buildLevelFunctions = state =>
     {},
   )
 
-const buildAssert = (state, name) => ({
-  truthy(type, object) {
-    const fields = Object.entries(object)
-      .filter(([, value]) => !value)
-      .map(([key]) => key)
-    if (fields.length) {
-      throw new Error(`${name}: assert: ${type}: ${fields.join(', ')}`)
-    }
-    state.logger.info(object, `assert: ${type}`)
-  },
-  string(type, object) {
-    const fields = Object.entries(object)
-      .filter(([, value]) => !value)
-      .map(([key]) => key)
-    if (fields.length) {
-      throw new Error(`${name}: assert: ${type}: ${fields.join(', ')}`)
-    }
-    state.logger.info(object, `assert: ${type}`)
-  },
-  equal(type, object, expected) {
-    const fields = Object.entries(expected)
-      .map(([key, value]) => [key, value, object[key]])
-      .filter(([, value, actualValue]) => actualValue !== value)
-    if (fields.length) {
-      const string = fields
-        .map(tuple =>
-          tuple.map(value => (value ? value.toString() : 'empty')).join(':'),
-        )
-        .join(', ')
-      throw new Error(`${name}: assert: ${type}: ${string}`)
-    }
-    state.logger.debug(object, `assert: ${type}`)
-  },
-})
-
-const buildMonitor = ({ redis }, { name }, context = {}) => {
+const buildMonitor = ({ redis, config }, { name }, context = {}) => {
   assert.strictEqual(typeof name, 'string', 'name')
   const state = {
     name,
